@@ -83,6 +83,7 @@ function prepareBarRects(barGroup: d3.Selection<d3.BaseType, VerticalBarModel, d
                          x1: d3.ScaleBand<string>, y: d3.ScaleLinear<number, number>, z: d3.ScaleOrdinal<string, {}>, height: number): void {
     const barRects = barGroup.selectAll<SVGRectElement, any>('rect.bar, rect.bar-negative')
         .data((d, i) => {
+            console.log('d--->', d);
             return d.series.map((seriesItem, si) => [seriesItem, i, si, d.name, d.series, d.description])
         });
 
@@ -95,6 +96,7 @@ function prepareBarRects(barGroup: d3.Selection<d3.BaseType, VerticalBarModel, d
             return y(Math.max(0, startValue));
         })
         .attr('height', (d: [SeriesItem, number, number, string, SeriesItem[], string]) => {
+            console.log(d);
             return d[0].value >= 0 ? y(0) - y(d[0].value) : y(d[0].value) - y(0);
         })
         .attr('stroke-width', 5)
